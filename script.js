@@ -3,12 +3,14 @@ const nomeInput = document.getElementById("nome");
 const emailInput = document.getElementById("email");
 const telefoneInput = document.getElementById("telefone");
 const botaoSalvar = document.getElementById("botao-salvar");
-const campoBusca = document.getElementById("busca");
 const listaContatos = document.getElementById("lista-contatos");
 
 let contatos = [];
 let idEmEdicao = null; 
 
+
+
+// FUNÇÕES DE LOCAL STORAGE
 function carregarContatos() {
   const dados = localStorage.getItem("contatos");
   contatos = dados ? JSON.parse(dados) : [];
@@ -18,9 +20,9 @@ function salvarContatos() {
   localStorage.setItem("contatos", JSON.stringify(contatos));
 }
 
-// ==========================
+
+
 // FUNÇÃO PARA RENDERIZAR
-// ==========================
 function renderizarContatos(filtro = "") {
   listaContatos.innerHTML = "";
 
@@ -46,9 +48,9 @@ function renderizarContatos(filtro = "") {
   });
 }
 
-// ==========================
+
+
 // FUNÇÃO PARA ADICIONAR/EDITAR
-// ==========================
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
@@ -83,9 +85,9 @@ form.addEventListener("submit", (e) => {
   form.reset();
 });
 
-// ==========================
+
+
 // FUNÇÕES DE EDIÇÃO E REMOÇÃO
-// ==========================
 function editarContato(id) {
   const contato = contatos.find(c => c.id === id);
   nomeInput.value = contato.nome;
@@ -104,15 +106,13 @@ function removerContato(id) {
   }
 }
 
-// ==========================
+
 // FUNÇÃO DE BUSCA/FILTRO
-// ==========================
 campoBusca.addEventListener("input", (e) => {
   renderizarContatos(e.target.value);
 });
 
-// ==========================
-// INICIALIZAÇÃO
-// ==========================
+
+
 carregarContatos();
 renderizarContatos();

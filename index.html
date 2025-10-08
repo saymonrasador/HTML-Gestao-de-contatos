@@ -10,7 +10,6 @@
   <div class="container">
     <h1>Sistema de Gestão de Contatos</h1>
 
-    <!-- Formulário de Cadastro/Edição -->
     <form id="form-contato">
       <input type="text" id="nome" placeholder="Nome" required />
       <input type="email" id="email" placeholder="E-mail" required />
@@ -18,10 +17,11 @@
       <button type="submit" id="botao-salvar">Adicionar Contato</button>
     </form>
 
-    <!-- Campo de Busca -->
-    <input type="text" id="busca" placeholder="Buscar por nome ou e-mail..." />
-
-    <!-- Lista de Contatos -->
+    <div class="busca-container">
+       <p>Buscar por nome ou email: </p>
+        <input type="text" id="busca"/>
+    </div>
+    
     <table id="tabela-contatos">
       <thead>
         <tr>
@@ -32,7 +32,7 @@
         </tr>
       </thead>
       <tbody id="lista-contatos">
-        <!-- Linhas geradas dinamicamente -->
+
       </tbody>
     </table>
   </div>
