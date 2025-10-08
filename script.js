@@ -7,7 +7,7 @@ const campoBusca = document.getElementById("busca");
 const listaContatos = document.getElementById("lista-contatos");
 
 let contatos = [];
-let idEmEdicao = null; 
+let idEmEdicao = null;
 
 function carregarContatos() {
   const dados = localStorage.getItem("contatos");
@@ -18,18 +18,16 @@ function salvarContatos() {
   localStorage.setItem("contatos", JSON.stringify(contatos));
 }
 
-// ==========================
-// FUNÇÃO PARA RENDERIZAR
-// ==========================
 function renderizarContatos(filtro = "") {
   listaContatos.innerHTML = "";
 
-  const contatosFiltrados = contatos.filter(contato =>
-    contato.nome.toLowerCase().includes(filtro.toLowerCase()) ||
-    contato.email.toLowerCase().includes(filtro.toLowerCase())
+  const contatosFiltrados = contatos.filter(
+    (contato) =>
+      contato.nome.toLowerCase().includes(filtro.toLowerCase()) ||
+      contato.email.toLowerCase().includes(filtro.toLowerCase())
   );
 
-  contatosFiltrados.forEach(contato => {
+  contatosFiltrados.forEach((contato) => {
     const tr = document.createElement("tr");
 
     tr.innerHTML = `
@@ -46,9 +44,6 @@ function renderizarContatos(filtro = "") {
   });
 }
 
-// ==========================
-// FUNÇÃO PARA ADICIONAR/EDITAR
-// ==========================
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
@@ -62,18 +57,16 @@ form.addEventListener("submit", (e) => {
   }
 
   if (idEmEdicao) {
-    // Atualiza contato existente
-    const index = contatos.findIndex(c => c.id === idEmEdicao);
+    const index = contatos.findIndex((c) => c.id === idEmEdicao);
     contatos[index] = { id: idEmEdicao, nome, email, telefone };
     idEmEdicao = null;
     botaoSalvar.textContent = "Adicionar Contato";
   } else {
-    // Adiciona novo contato
     const novoContato = {
       id: Date.now(),
       nome,
       email,
-      telefone
+      telefone,
     };
     contatos.push(novoContato);
   }
@@ -83,11 +76,8 @@ form.addEventListener("submit", (e) => {
   form.reset();
 });
 
-// ==========================
-// FUNÇÕES DE EDIÇÃO E REMOÇÃO
-// ==========================
 function editarContato(id) {
-  const contato = contatos.find(c => c.id === id);
+  const contato = contatos.find((c) => c.id === id);
   nomeInput.value = contato.nome;
   emailInput.value = contato.email;
   telefoneInput.value = contato.telefone;
@@ -98,21 +88,15 @@ function editarContato(id) {
 
 function removerContato(id) {
   if (confirm("Deseja realmente remover este contato?")) {
-    contatos = contatos.filter(c => c.id !== id);
+    contatos = contatos.filter((c) => c.id !== id);
     salvarContatos();
     renderizarContatos();
   }
 }
 
-// ==========================
-// FUNÇÃO DE BUSCA/FILTRO
-// ==========================
 campoBusca.addEventListener("input", (e) => {
   renderizarContatos(e.target.value);
 });
 
-// ==========================
-// INICIALIZAÇÃO
-// ==========================
 carregarContatos();
 renderizarContatos();
